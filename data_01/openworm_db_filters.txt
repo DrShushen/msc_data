@@ -1,0 +1,24 @@
+http://movement.openworm.org/
+
+
+
+INITIAL FILTER:
+
+Strains Records: N2
+Alleles Records: -N/A-
+Ventral Side Records: anticlockwise
+Genes Records: -N/A-
+Food Records: OP50 (NOTE: Consider also "no food" option)
+Habituation Records: 30m wait
+Developmental Stage Records: adult
+Experimenter Records: Laura Grundy
+Arena Records: 35mm petri dish NGM agar low peptone
+
+This gives URL:
+http://movement.openworm.org/?search=&length_isFeature=&midbody_bend_mean_abs_isFeature=&midbody_speed_abs_isFeature=&strains=N2%2C-N%252FA-&alleles=-N%252FA-&ventral=anticlockwise&genes=-N%252FA-&food=OP50&habituation=30m%2520wait&dev=adult&experimenter=Laura%2520Grundy&arena=35mm%2520petri%2520dish%2520NGM%2520agar%2520low%2520peptone
+
+
+
+FURTHER FILTER THROUGH CHARTS:
+
+See image openworm_db_filters.png
