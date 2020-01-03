@@ -35,14 +35,13 @@ def get_worm_data_files(root_dir):
                 yield (os.path.join(ed, hdf5_files[0]), os.path.join(ed, hdf5_files[1]), containing_dir_name)
 
 
-def explore_worm_files(main_file, feature_file):
-    exp_keys_main_file = ['experiment_info', 'full_data', 'mask', 'provenance_tracking', 'stage_log',
-                          'stage_position_pix', 'timestamp', 'video_metadata', 'xml_info']
-
-    with h5py.File(main_file, "r") as f:
-
-        if list(f.keys()) != exp_keys_main_file:
-            print("DISAGREEMENT")
+def print_hdf5_content_info(file, exp_keys=None):
+    
+    with h5py.File(file, "r") as f:
+        
+        if exp_keys is not None:
+            if list(f.keys()) != exp_keys:
+                print("DISAGREEMENT IN KEYS!")
 
         for k in f.keys():
 
@@ -60,18 +59,29 @@ def explore_worm_files(main_file, feature_file):
 
             print("---")
 
+
+def explore_worm_files(main_file, feature_file, show_frame_count=100):
+    exp_keys_main_file = ['experiment_info', 'full_data', 'mask', 'provenance_tracking', 'stage_log',
+                          'stage_position_pix', 'timestamp', 'video_metadata', 'xml_info']
+
+    print_hdf5_content_info(main_file, exp_keys=exp_keys_main_file)
+
+    with h5py.File(main_file, "r") as f:
+
         print("\n--------------------------------------------------------\n")
 
         mask = f["mask"]
 
         # save_video_ffmpeg(mask)
 
-        for frame in mask[:100]:
+        for frame in mask[:show_frame_count]:
             print(type(frame))
             print(frame.shape)
             plt.imshow(frame)
             plt.show()
             time.sleep(0.5)
+    
+    print_hdf5_content_info(feature_file)
 
 
 def retrieve_example_frame(ith_file=35, ith_frame=100):

@@ -11,3 +11,10 @@
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+# Data
+**/data/*
+
+# Python
+__pycache__/
+.ipynb_checkpoints/
