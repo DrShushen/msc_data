@@ -7,7 +7,11 @@ import matplotlib.animation as animation
 import time
 import cv2
 import subprocess
-from multiprocessing import Pool
+from multiprocessing import Pool, cpu_count
+
+
+DATA_FILES_PATH = "../data_01/data/"
+OUTPUT_PATH_RESCALED_MASK = "../data_01/processed/rescaled_mask/"
 
 
 def get_worm_data_files(root_dir):
@@ -198,7 +202,7 @@ def explore_worm_proc_files(file):
 
 def rescale_data_mask_wrapper(args):
     mf, _, dirname = args
-    output_dir = "/mnt/windows/openworm/data_01_proc/" + dirname
+    output_dir = os.path.join(OUTPUT_PATH_RESCALED_MASK, dirname)
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
     rescale_data_mask(mf, output_dir=output_dir)
@@ -214,13 +218,13 @@ if __name__ == "__main__":
     #         os.makedirs(output_dir)
     #     rescale_data_masks(mf, output_dir=output_dir)
 
-    with Pool(8) as p:
-        p.map(rescale_data_mask_wrapper, get_worm_data_files("/mnt/windows/openworm/data_01/"))
+    _cpu_count = cpu_count()
+    print("CPU count to use with Pool: {}".format(_cpu_count))
+    with Pool(_cpu_count) as p:
+        p.map(rescale_data_mask_wrapper, get_worm_data_files(DATA_FILES_PATH))
 
     # for f, dirname in list(get_worm_proc_data_files("/mnt/windows/openworm/data_01_proc/"))[:1]:  # [:1]:
     #     explore_worm_proc_files(f)
 
     # example = retrieve_example_frame()
     # example = rescale_example_frame(example)
-
-    pass
